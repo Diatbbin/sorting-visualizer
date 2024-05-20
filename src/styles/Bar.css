@@ -1,0 +1,10 @@
+.bar {
+  display: inline-block;
+  width: 40px;
+  margin: 1px;
+  background-color: blue;
+  text-align: center;
+  color: white;
+  font-size: 10px;
+  line-height: 30px;
+}
