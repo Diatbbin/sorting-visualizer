@@ -4,7 +4,7 @@ import '../styles/Button.css';
 const Button = ({ value, onClick }) => {
   return (
     <div className="button">
-      <button className="button" onClick={onClick}>{value}</button>
+      <button className="btn btn-blue" onClick={onClick}>{value}</button>
     </div>
   );
 };
