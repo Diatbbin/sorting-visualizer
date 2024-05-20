@@ -2,13 +2,9 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 500px;
+  height: 300px;
 }
 
 .button-container {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 100px;
-  gap: 10px;
+  @apply flex flex-col space-y-4;
 }

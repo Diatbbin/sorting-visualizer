@@ -111,20 +111,34 @@ class SortingVisualizer extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="bar-container">
+      <div class="flex flex-col">        
+        <div className="bar-container" style={{height:'60vh'}}>
           {this.renderBars()}
         </div>
-  
-        <div className="button-container">
-          {this.renderButtons()}
-          <Button onClick={() => this.resetArray()} value="Reset Array"/>
+
+        <div class="bg-black text-white w-screen flex flex-col fixed bottom-0" style={{height:'40vh'}}>
+          <div class="p-4 border-b border-gray-700">
+            <h2 class="text-4xl font-semibold">Sorting Algorithms</h2>
+          </div>
+
+          <div class="flex flex-row"> 
+            <div className="button-container" style={{width:'12vw'}}>
+                {this.renderButtons()}
+                <Button onClick={() => this.resetArray()} value="Reset Array"/>
+            </div>
+
+            <div class="p-4 border-l border-gray-700" style={{height:'40vh', width:'44vw'}}/>
+            <div class="p-4 border-l border-gray-700" style={{height:'40vh', width:'44vw'}}/>
+
+            <div>
+              {this.renderSlider()}
+            </div> 
+          </div>
         </div>
 
-        <div>
-          {this.renderSlider()}
-        </div>
       </div>
+
+       
     );
   };
 }
