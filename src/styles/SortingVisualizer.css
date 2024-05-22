@@ -1,10 +1,7 @@
 .bar-container {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 300px;
+  @apply flex items-end justify-center w-screen h-screen;
 }
 
 .button-container {
-  @apply flex flex-col space-y-4;
+  @apply flex flex-col space-y-4 my-4 mx-4;
 }

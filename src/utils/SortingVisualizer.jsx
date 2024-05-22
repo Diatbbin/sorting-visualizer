@@ -1,7 +1,8 @@
 import React from 'react';
 import Bar from '../components/Bar.js';
-import Button from '../components/Button.js';
+import { BlueButton, RedButton } from '../components/Button.js';
 import '../styles/SortingVisualizer.css';
+import '../styles/Button.css';
 import {handleSort} from '../algorithms/SortingManager.js';
 
 class SortingVisualizer extends React.Component {
@@ -10,7 +11,7 @@ class SortingVisualizer extends React.Component {
 
     this.state = {
       array: [],
-      noOfBars: 40,
+      noOfBars: 100,
       SortAlgos: ["Insertion Sort",
                   "Bubble Sort",
                   "Merge Sort",
@@ -30,7 +31,7 @@ class SortingVisualizer extends React.Component {
     const {noOfBars} = this.state;
 
     for (let i = 0; i < noOfBars; i++) {
-      newArray.push(this.generateRandomNumber(5, noOfBars));
+      newArray.push(this.generateRandomNumber(40, noOfBars));
     }
     this.setState({array: newArray});
   };
@@ -40,10 +41,10 @@ class SortingVisualizer extends React.Component {
   }
 
   renderBars() {
-    const {array} = this.state;
+    const {array, noOfBars} = this.state;
 
     return array.map((value, index) => (
-      <Bar key={index} height={`${value * 10}px`} />
+      <Bar key={index} heightFrac={value/noOfBars} />
     ));
   };
 
@@ -51,7 +52,7 @@ class SortingVisualizer extends React.Component {
     const {SortAlgos} = this.state;
 
     return SortAlgos.map((value, index) => (
-      <Button key={index} onClick={() => this.handleSortAnimation({value})} value={value}/>
+      <BlueButton key={index} onClick={() => this.handleSortAnimation({value})} value={value}/>
     ));
   } 
 
@@ -122,9 +123,9 @@ class SortingVisualizer extends React.Component {
           </div>
 
           <div class="flex flex-row"> 
-            <div className="button-container" style={{width:'12vw'}}>
+          <div className="button-container" style={{width:'12vw'}}>
                 {this.renderButtons()}
-                <Button onClick={() => this.resetArray()} value="Reset Array"/>
+                <RedButton onClick={() => this.resetArray()} className="btn-red" value="Reset Array"/>
             </div>
 
             <div class="p-4 border-l border-gray-700" style={{height:'40vh', width:'44vw'}}/>
