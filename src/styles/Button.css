@@ -3,13 +3,17 @@
 }
 
 .btn-blue {
-    @apply bg-blue-500 text-white;
+    @apply bg-neutral-500 text-neutral-200;
 }
 
 .btn-red {
-    @apply bg-red-500 text-white;
+    @apply bg-stone-500 text-stone-200;
 }
 
 .btn-blue:hover {
-    @apply bg-blue-700;
+    @apply bg-neutral-800;
+}
+
+.btn-red:hover {
+    @apply bg-stone-800;
 }

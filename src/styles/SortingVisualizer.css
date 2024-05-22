@@ -1,5 +1,5 @@
 .bar-container {
-  @apply flex items-end justify-center w-screen h-screen;
+  @apply flex items-end justify-center px-1 w-screen h-screen;
 }
 
 .button-container {

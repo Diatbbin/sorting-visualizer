@@ -11,14 +11,14 @@ class SortingVisualizer extends React.Component {
 
     this.state = {
       array: [],
-      noOfBars: 100,
+      noOfBars: 80,
       SortAlgos: ["Insertion Sort",
                   "Bubble Sort",
                   "Merge Sort",
                   "Selection Sort",],
-      swapColor: 'red', 
-      ogColor: 'blue',
-      timeout: 3
+      swapColor: '#475569', 
+      ogColor: '#e2e8f0',
+      timeout: 15
     };
   }
 
@@ -31,7 +31,7 @@ class SortingVisualizer extends React.Component {
     const {noOfBars} = this.state;
 
     for (let i = 0; i < noOfBars; i++) {
-      newArray.push(this.generateRandomNumber(40, noOfBars));
+      newArray.push(this.generateRandomNumber(20, noOfBars));
     }
     this.setState({array: newArray});
   };
@@ -60,21 +60,22 @@ class SortingVisualizer extends React.Component {
     const {noOfBars} = this.state;
     return <input
               type="range"
-              min="1"
-              max="100"
+              min="40"
+              max="120"
               value={noOfBars}
               onChange={this.handleSliderChange}
+              className="bg-stone-300"
             />
   }
 
   handleSortAnimation(sortingAlgo) { 
-    const {array} = this.state;
+    const {array, noOfBars} = this.state;
     const arrayCopy = array.slice();
     const steps = handleSort(sortingAlgo, arrayCopy); 
     const {swapColor, ogColor, timeout} = this.state;
 
     for (let i = 0; i < steps.length; i++) {
-      const [firstBarIdx, firstBarHeight, secBarIdx, secBarHeight, isSwapped] = steps[i];
+      const [firstBarIdx, firstBarVal, secBarIdx, secBarVal, isSwapped] = steps[i];
 
       const arrayBars = document.getElementsByClassName('bar');
       const firstBarStyle = arrayBars[firstBarIdx].style;
@@ -83,20 +84,18 @@ class SortingVisualizer extends React.Component {
       setTimeout(() => {
         firstBarStyle.backgroundColor = swapColor;
         secBarStyle.backgroundColor = swapColor;
-      }, i * timeout + 1);
-
+      }, i * timeout + 5);
       if (isSwapped) {
         setTimeout(() => {
-          const temp = firstBarHeight;
-          firstBarStyle.height = `${secBarHeight * 10}px`;  
-          secBarStyle.height = `${temp * 10}px`;
-        }, i * timeout + 2);
+          firstBarStyle.height = `${secBarVal / noOfBars * (4/5) * 100}%`;  
+          secBarStyle.height = `${firstBarVal / noOfBars * (4/5) * 100}%`;
+        }, i * timeout + 10);
       }
 
       setTimeout(() => {
         firstBarStyle.backgroundColor = ogColor;
         secBarStyle.backgroundColor = ogColor;
-      }, i * timeout + 3);
+      }, i * timeout + 15);
     }
     setTimeout(() => {
       this.setState({array: arrayCopy});
@@ -104,6 +103,7 @@ class SortingVisualizer extends React.Component {
   }
 
   handleSliderChange = (event) => {
+    this.resetArray();
     const newNoOfbars = event.target.value
     console.log({newNoOfbars});
     this.setState({noOfBars: newNoOfbars});
@@ -117,9 +117,10 @@ class SortingVisualizer extends React.Component {
           {this.renderBars()}
         </div>
 
-        <div class="bg-black text-white w-screen flex flex-col fixed bottom-0" style={{height:'40vh'}}>
-          <div class="p-4 border-b border-gray-700">
-            <h2 class="text-4xl font-semibold">Sorting Algorithms</h2>
+        <div class="bg-zinc-400 text-white w-screen flex flex-col fixed bottom-0"  style={{height:'40vh'}}>
+          <div class="flex flex-row p-4 border-b border-black">
+            <h2 class="text-4xl font-semibold text-zinc-600 border-zinc-800 mr-10">Sorting Algorithms</h2>
+            {this.renderSlider()}
           </div>
 
           <div class="flex flex-row"> 
@@ -128,12 +129,9 @@ class SortingVisualizer extends React.Component {
                 <RedButton onClick={() => this.resetArray()} className="btn-red" value="Reset Array"/>
             </div>
 
-            <div class="p-4 border-l border-gray-700" style={{height:'40vh', width:'44vw'}}/>
-            <div class="p-4 border-l border-gray-700" style={{height:'40vh', width:'44vw'}}/>
+            <div class="p-4 border-l border-black" style={{height:'40vh', width:'44vw'}}/>
+            <div class="p-4 border-l border-black" style={{height:'40vh', width:'44vw'}}/>
 
-            <div>
-              {this.renderSlider()}
-            </div> 
           </div>
         </div>
 
