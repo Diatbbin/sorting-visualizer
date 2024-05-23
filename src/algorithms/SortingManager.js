@@ -4,6 +4,8 @@ export function handleSort(sortingAlgo, array) {
             return insertionSort(array);
         case "Bubble Sort":
             return bubbleSort(array);
+        case "Merge Sort":
+            return mergeSort(array);
         default:
             return "Sorting algorithm is unavailable";
     }
@@ -57,3 +59,28 @@ function bubbleSort(array) {
     return steps;      
 };
 
+function mergeSort(array) {
+    const steps = [];
+    mergeSortHelper(array, 0, array.length - 1, steps)
+    return steps;
+};
+
+function mergeSortHelper(array, left, right, steps) {
+    if (left == right) {
+        return;
+    }
+
+    mergeSortHelper(array, left, right/2, steps);
+    mergeSortHelper(array, right/2 + 1, right, steps);
+
+    for (let i = left + 1; i < right + 1; i++) {
+        if (array[i] < array[i-1]) {
+            steps.push([i-1, array[i-1], i, array[i], true]);
+            let tmp = array[i];
+            array[i] = array[i-1];
+            array[i-1] = tmp;
+        } else {
+            steps.push([i-1, array[i-1], i, array[i], false]);
+        }
+    }
+}
