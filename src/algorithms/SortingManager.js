@@ -2,6 +2,8 @@ export function handleSort(sortingAlgo, array) {
     switch(sortingAlgo['value']) {
         case "Insertion Sort":
             return insertionSort(array);
+        case "Bubble Sort":
+            return bubbleSort(array);
         default:
             return "Sorting algorithm is unavailable";
     }
@@ -29,7 +31,29 @@ function insertionSort(array) {
         endPtr++;
         array[endPtr] = curr;
     }  
-    console.log(steps);
+    return steps;      
+};
+
+function bubbleSort(array) {
+    const steps = [];
+    let len = array.length;
+
+    for (let i = 1; i < len; i++) {
+        for (let j = i; j < len; j++) {
+            let currPos = j - i + 1;
+            let currVal = array[currPos];
+            let prevVal = array[currPos-1];
+
+            if (array[currPos] < array[currPos-1]) {
+                steps.push([currPos-1, prevVal, currPos, currVal, true]);
+                let tmp = array[currPos];
+                array[currPos] = array[currPos-1];
+                array[currPos-1] = tmp;
+            } else {
+                steps.push([currPos-1, prevVal, currPos, currVal, false]);
+            }
+        }
+    }  
     return steps;      
 };
 
