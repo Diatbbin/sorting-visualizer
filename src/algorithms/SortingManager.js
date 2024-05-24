@@ -61,26 +61,52 @@ function bubbleSort(array) {
 
 function mergeSort(array) {
     const steps = [];
+    console.log(array);
     mergeSortHelper(array, 0, array.length - 1, steps)
+    console.log(array);
+    console.log(steps);
     return steps;
 };
 
 function mergeSortHelper(array, left, right, steps) {
-    if (left == right) {
-        return;
+    if (left < right) {
+        const mid = Math.floor((left + right) / 2);
+        mergeSortHelper(array, left, mid, steps);
+        mergeSortHelper(array, mid + 1, right, steps);
+        merge(array, left, mid, right, steps);
+    }
+}
+
+function merge(array, left, mid, right, steps) {
+    const leftArr = array.slice(left, mid + 1);
+    const rightArr = array.slice(mid + 1, right + 1);
+    let leftPos = 0, rightPos = 0, curr = left;
+
+    while (leftPos < leftArr.length && rightPos < rightArr.length) {
+        if (leftArr[leftPos] <= rightArr[rightPos]) {
+            steps.push([curr, leftArr[leftPos], curr, array[curr], true]);
+            array[curr] = leftArr[leftPos];
+            leftPos++;
+            curr++;
+        } else {
+            steps.push([curr, rightArr[rightPos], curr, array[curr], true]);
+            array[curr] = rightArr[rightPos]; 
+            rightPos++;
+            curr++;
+        }
     }
 
-    mergeSortHelper(array, left, right/2, steps);
-    mergeSortHelper(array, right/2 + 1, right, steps);
+    while (leftPos < leftArr.length) {
+        steps.push([curr, leftArr[leftPos], curr, array[curr], true]);
+        array[curr] = leftArr[leftPos];
+        leftPos++;
+        curr++;
+    }
 
-    for (let i = left + 1; i < right + 1; i++) {
-        if (array[i] < array[i-1]) {
-            steps.push([i-1, array[i-1], i, array[i], true]);
-            let tmp = array[i];
-            array[i] = array[i-1];
-            array[i-1] = tmp;
-        } else {
-            steps.push([i-1, array[i-1], i, array[i], false]);
-        }
+    while (rightPos < rightArr.length) {
+        steps.push([curr, rightArr[rightPos], curr, array[curr], true]);
+        array[curr] = rightArr[rightPos];
+        rightPos++;
+        curr++;
     }
 }
