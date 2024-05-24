@@ -18,7 +18,7 @@ class SortingVisualizer extends React.Component {
                   "Selection Sort",],
       swapColor: '#475569', 
       ogColor: '#e2e8f0',
-      timeout: 15
+      timeout: 45
     };
   }
 
@@ -84,18 +84,18 @@ class SortingVisualizer extends React.Component {
       setTimeout(() => {
         firstBarStyle.backgroundColor = swapColor;
         secBarStyle.backgroundColor = swapColor;
-      }, i * timeout + 5);
+      }, i * timeout + 15);
       if (isSwapped) {
         setTimeout(() => {
           firstBarStyle.height = `${secBarVal / noOfBars * (4/5) * 100}%`;  
           secBarStyle.height = `${firstBarVal / noOfBars * (4/5) * 100}%`;
-        }, i * timeout + 10);
+        }, i * timeout + 30);
       }
 
       setTimeout(() => {
         firstBarStyle.backgroundColor = ogColor;
         secBarStyle.backgroundColor = ogColor;
-      }, i * timeout + 15);
+      }, i * timeout + 45);
     }
     setTimeout(() => {
       this.setState({array: arrayCopy});

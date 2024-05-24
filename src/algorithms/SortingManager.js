@@ -6,6 +6,8 @@ export function handleSort(sortingAlgo, array) {
             return bubbleSort(array);
         case "Merge Sort":
             return mergeSort(array);
+        case "Selection Sort":
+            return selectionSort(array);
         default:
             return "Sorting algorithm is unavailable";
     }
@@ -61,10 +63,7 @@ function bubbleSort(array) {
 
 function mergeSort(array) {
     const steps = [];
-    console.log(array);
     mergeSortHelper(array, 0, array.length - 1, steps)
-    console.log(array);
-    console.log(steps);
     return steps;
 };
 
@@ -110,3 +109,27 @@ function merge(array, left, mid, right, steps) {
         curr++;
     }
 }
+
+function selectionSort(array) {
+    const steps = [];
+
+    for (let i = 0; i < array.length; i++) {
+        let currMinIdx = 0, currMinVal = 121; // max val is 120
+        for (let j = i; j < array.length; j++) {
+            steps.push([j, array[j], i, array[i], false]);
+
+            if (array[j] < currMinVal) {
+                currMinVal = array[j];
+                currMinIdx = j;
+            }
+        }
+
+        if (currMinIdx !== i) {
+            steps.push([currMinIdx, currMinVal, i, array[i], true]);
+            let tmp = array[i];
+            array[i] = array[currMinIdx];
+            array[currMinIdx] = tmp;
+        }
+    }
+    return steps;
+};
