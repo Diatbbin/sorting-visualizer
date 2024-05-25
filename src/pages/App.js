@@ -6,7 +6,11 @@ import SortingVisualizer from '../utils/SortingVisualizer';
 function App() {
   return (
     <div>
-      <SortingVisualizer/>
+      <header>dswffewfqw</header>
+      <main>
+        <SortingVisualizer/>
+      </main>
+      
     </div>
 
   );

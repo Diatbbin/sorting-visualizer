@@ -1,9 +1,10 @@
 import React from 'react';
 import Bar from '../components/Bar.js';
-import { BlueButton, RedButton } from '../components/Button.js';
+import { SortButton, ResetButton } from '../components/Button.js';
+import {handleSort} from '../algorithms/SortingManager.js';
 import '../styles/SortingVisualizer.css';
 import '../styles/Button.css';
-import {handleSort} from '../algorithms/SortingManager.js';
+import '../styles/descVisualizer.css';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -30,7 +31,6 @@ class SortingVisualizer extends React.Component {
 
   componentDidMount() {
     this.resetArray();
-    const {array} = this.state;
   }
 
   resetArray() {
@@ -66,7 +66,7 @@ class SortingVisualizer extends React.Component {
     const {SortAlgos} = this.state;
 
     return SortAlgos.map((value, index) => (
-      <BlueButton key={index} onClick={() => this.handleSortAnimation({value})} value={value}/>
+      <SortButton key={index} onClick={() => this.handleSortAnimation({value})} value={value}/>
     ));
   } 
 
@@ -142,31 +142,35 @@ class SortingVisualizer extends React.Component {
     const {infoText, tComplexityText, sComplexityText, tComplexityHeader, sComplexityHeader} = this.state;
     return (
       <div class="flex flex-col">        
-        <div className="bar-container" style={{height:'60vh'}}>
+        <div className="bar-container">
           {this.renderBars()}
         </div>
 
-        <div class="bg-zinc-400 text-white w-screen flex flex-col fixed bottom-0"  style={{height:'40vh'}}>
-          <div class="flex flex-row p-4 border-b border-black">
-            <h2 class="text-4xl font-semibold text-zinc-600 border-zinc-800 mr-10">Sorting Algorithms</h2>
+        <div class="sort-box">
+          <div class="sort-border">
+            <h2 class="sort-header">Sorting Algorithms</h2>
             {this.renderSlider()}
           </div>
 
           <div class="flex flex-row"> 
-          <div className="button-container w-1/5">
+          <div className="button-container">
                 {this.renderButtons()}
-                <RedButton onClick={() => this.resetArray()} className="btn-red" value="Reset Array"/>
+                <ResetButton onClick={() => this.resetArray()} className="btn-reset" value="Reset Array"/>
             </div>
             <div class="flex flex-col">
-              <div class="text-2xl w-4/5">{infoText}</div>
-              <h3 class="text-4xl font-semibold text-zinc-600 py-2">
+              <div class="desc-text">{infoText}</div>
+              
+              <h3 class="desc-header">
                 {tComplexityHeader}
               </h3>
-              <div class="text-2xl w-4/5">{tComplexityText}</div>
-              <h3 class="text-4xl font-semibold text-zinc-700 py-2">
+
+              <div class="desc-text">{tComplexityText}</div>
+
+              <h3 class="desc-header">
                 {sComplexityHeader} 
               </h3>
-              <div class="text-2xl w-4/5">{sComplexityText}</div>
+
+              <div class="desc-text">{sComplexityText}</div>
             </div> 
           </div>
         </div>

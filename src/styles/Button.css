@@ -2,18 +2,18 @@
     @apply font-bold py-2 px-4 rounded;
 }
 
-.btn-blue {
+.btn-sort {
     @apply bg-neutral-500 text-neutral-200;
 }
 
-.btn-red {
+.btn-reset {
     @apply bg-stone-500 text-stone-200;
 }
 
-.btn-blue:hover {
+.btn-sort:hover {
     @apply bg-neutral-800;
 }
 
-.btn-red:hover {
+.btn-reset:hover {
     @apply bg-stone-800;
 }

@@ -1,7 +1,21 @@
 .bar-container {
   @apply flex items-end justify-center px-1 w-screen h-screen;
+  height: 60vh;
 }
 
 .button-container {
-  @apply flex flex-col space-y-4 my-4 mx-4;
+  @apply flex flex-col space-y-4 my-4 mx-4  w-1/5;
+}
+
+.sort-border {
+  @apply flex flex-row p-4 border-b border-black;
+}
+
+.sort-header {
+  @apply text-4xl font-semibold text-zinc-600 border-zinc-800 mr-10;
+}
+
+.sort-box {
+  @apply bg-zinc-400 text-white w-screen flex flex-col fixed bottom-0;
+  height: 40vh;
 }

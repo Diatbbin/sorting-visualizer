@@ -1,0 +1,7 @@
+.desc-text {
+    @apply text-2xl w-4/5;
+  }
+
+.desc-header {
+    @apply text-4xl font-semibold text-zinc-600 py-4;
+}
