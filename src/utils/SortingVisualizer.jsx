@@ -19,12 +19,18 @@ class SortingVisualizer extends React.Component {
       swapColor: '#475569', 
       ogColor: '#e2e8f0',
       timeout: 30,
-      timeoutIds: []
+      timeoutIds: [],
+      infoText: "",
+      tComplexityText: "",
+      sComplexityText: "",
+      tComplexityHeader: "",
+      sComplexityHeader: "",
     };
   }
 
   componentDidMount() {
     this.resetArray();
+    const {array} = this.state;
   }
 
   resetArray() {
@@ -35,7 +41,13 @@ class SortingVisualizer extends React.Component {
     for (let i = 0; i < noOfBars; i++) {
       newArray.push(this.generateRandomNumber(20, noOfBars));
     }
+
     this.setState({array: newArray});
+    this.setState({infoText: ""});
+    this.setState({tComplexityText: ""});
+    this.setState({sComplexityText: ""});
+    this.setState({tComplexityHeader: ""});
+    this.setState({sComplexityHeader: ""});
   };
 
   generateRandomNumber(minVal, maxVal) {
@@ -73,9 +85,14 @@ class SortingVisualizer extends React.Component {
   handleSortAnimation(sortingAlgo) { 
     const {array, noOfBars, timeoutIds} = this.state;
     const arrayCopy = array.slice();
-    const steps = handleSort(sortingAlgo, arrayCopy); 
+    const {desc, tcomplx, scomplx, steps} = handleSort(sortingAlgo, arrayCopy); 
     const {swapColor, ogColor, timeout} = this.state;
     this.resetArray();
+    this.setState({infoText: desc});
+    this.setState({tComplexityText: tcomplx});
+    this.setState({sComplexityText: scomplx});
+    this.setState({tComplexityHeader: "Time Complexity: "});
+    this.setState({sComplexityHeader: "Space Complexity: "});
     let i;
 
     for (i = 0; i < steps.length; i++) {
@@ -118,11 +135,11 @@ class SortingVisualizer extends React.Component {
   handleSliderChange = (event) => {
     this.resetArray();
     const newNoOfbars = event.target.value
-    console.log({newNoOfbars});
     this.setState({noOfBars: newNoOfbars});
   }
 
   render() {
+    const {infoText, tComplexityText, sComplexityText, tComplexityHeader, sComplexityHeader} = this.state;
     return (
       <div class="flex flex-col">        
         <div className="bar-container" style={{height:'60vh'}}>
@@ -136,20 +153,25 @@ class SortingVisualizer extends React.Component {
           </div>
 
           <div class="flex flex-row"> 
-          <div className="button-container" style={{width:'12vw'}}>
+          <div className="button-container w-1/5">
                 {this.renderButtons()}
                 <RedButton onClick={() => this.resetArray()} className="btn-red" value="Reset Array"/>
             </div>
-
-            <div class="p-4 border-l border-black" style={{height:'40vh', width:'44vw'}}/>
-            <div class="p-4 border-l border-black" style={{height:'40vh', width:'44vw'}}/>
-
+            <div class="flex flex-col">
+              <div class="text-2xl w-4/5">{infoText}</div>
+              <h3 class="text-4xl font-semibold text-zinc-600 py-2">
+                {tComplexityHeader}
+              </h3>
+              <div class="text-2xl w-4/5">{tComplexityText}</div>
+              <h3 class="text-4xl font-semibold text-zinc-700 py-2">
+                {sComplexityHeader} 
+              </h3>
+              <div class="text-2xl w-4/5">{sComplexityText}</div>
+            </div> 
           </div>
         </div>
 
       </div>
-
-       
     );
   };
 }

@@ -1,17 +1,57 @@
 export function handleSort(sortingAlgo, array) {
     switch(sortingAlgo['value']) {
         case "Insertion Sort":
-            return insertionSort(array);
+            return {
+                desc: sortingAlgoDesc[sortingAlgo['value']], 
+                tcomplx: sortingAlgoTimeComplx[sortingAlgo['value']],
+                scomplx: sortingAlgoSpaceComplx[sortingAlgo['value']],
+                steps: insertionSort(array)
+            };
         case "Bubble Sort":
-            return bubbleSort(array);
+            return {
+                desc: sortingAlgoDesc[sortingAlgo['value']], 
+                tcomplx: sortingAlgoTimeComplx[sortingAlgo['value']],
+                scomplx: sortingAlgoSpaceComplx[sortingAlgo['value']],
+                steps: bubbleSort(array)
+            };
         case "Merge Sort":
-            return mergeSort(array);
+            return {
+                desc: sortingAlgoDesc[sortingAlgo['value']], 
+                tcomplx: sortingAlgoTimeComplx[sortingAlgo['value']],
+                scomplx: sortingAlgoSpaceComplx[sortingAlgo['value']],
+                steps: mergeSort(array)
+            };
         case "Selection Sort":
-            return selectionSort(array);
+            return {
+                desc: sortingAlgoDesc[sortingAlgo['value']], 
+                tcomplx: sortingAlgoTimeComplx[sortingAlgo['value']],
+                scomplx: sortingAlgoSpaceComplx[sortingAlgo['value']],
+                steps: selectionSort(array)
+            };
         default:
             return "Sorting algorithm is unavailable";
     }
 };
+
+
+
+let sortingAlgoDesc = {"Insertion Sort": "Insertion sort works by iteratively inserting each element of an unsorted list into its correct position in a sorted portion of the list. It is a stable sorting algorithm, elements with equal values maintain their relative order in the sorted output.",
+"Bubble Sort": "Bubble sort repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. This pushes the largest element to the sorted portion at the end each iteration.                                                                                       ",
+"Merge Sort": "Merge sort uses a divide and conquer approach to recursively divide the input array into smaller subarrays and sorting those subarrays then merging them back together to obtain the sorted array                                                                                                 ",
+"Selection Sort": "Selection sort repeatedly selects the smallest element from the unsorted portion and swaps it with the first element of the unsorted part. This process is repeated for the remaining unsorted portion until the entire list is sorted                                                        "
+}
+
+let sortingAlgoTimeComplx = {"Insertion Sort": "Best case: O(n) Sorted Array, Average case: O(n2), Worst case: O(n2) Array in reversed order ",
+"Bubble Sort": "Best case: O(n) Sorted Array, Average case: O(n2), Worst case: O(n2)                                                         ",
+"Merge Sort": "Best Case: O(n log n), Sorted or nearly sorted Array, Average Case: O(n log n), Worst Case: O(n log n) reversed order",
+"Selection Sort": "Always O(n2)                                                                                                              "
+}
+
+let sortingAlgoSpaceComplx = {"Insertion Sort": "Auxiliary Space: O(1)                       ",
+"Bubble Sort": "Auxiliary Space: O(1)                                                        ",
+"Merge Sort": "O(n), Additional space is required for the temporary array used during merging",
+"Selection Sort": "Auxiliary Space: O(1)                                                     "
+}
 
 function insertionSort(array) {
     const steps = [];
