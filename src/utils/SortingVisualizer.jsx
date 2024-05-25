@@ -18,7 +18,8 @@ class SortingVisualizer extends React.Component {
                   "Selection Sort",],
       swapColor: '#475569', 
       ogColor: '#e2e8f0',
-      timeout: 45
+      timeout: 30,
+      timeoutIds: []
     };
   }
 
@@ -29,6 +30,7 @@ class SortingVisualizer extends React.Component {
   resetArray() {
     const newArray = [];
     const {noOfBars} = this.state;
+    this.clearTimeouts();
 
     for (let i = 0; i < noOfBars; i++) {
       newArray.push(this.generateRandomNumber(20, noOfBars));
@@ -69,37 +71,48 @@ class SortingVisualizer extends React.Component {
   }
 
   handleSortAnimation(sortingAlgo) { 
-    const {array, noOfBars} = this.state;
+    const {array, noOfBars, timeoutIds} = this.state;
     const arrayCopy = array.slice();
     const steps = handleSort(sortingAlgo, arrayCopy); 
     const {swapColor, ogColor, timeout} = this.state;
+    this.resetArray();
+    let i;
 
-    for (let i = 0; i < steps.length; i++) {
+    for (i = 0; i < steps.length; i++) {
       const [firstBarIdx, firstBarVal, secBarIdx, secBarVal, isSwapped] = steps[i];
 
       const arrayBars = document.getElementsByClassName('bar');
       const firstBarStyle = arrayBars[firstBarIdx].style;
       const secBarStyle = arrayBars[secBarIdx].style;
-
-      setTimeout(() => {
+ 
+      timeoutIds.push(setTimeout(() => {
         firstBarStyle.backgroundColor = swapColor;
         secBarStyle.backgroundColor = swapColor;
-      }, i * timeout + 15);
+      }, i * timeout + 10));
+
       if (isSwapped) {
-        setTimeout(() => {
+        timeoutIds.push(setTimeout(() => {
           firstBarStyle.height = `${secBarVal / noOfBars * (4/5) * 100}%`;  
           secBarStyle.height = `${firstBarVal / noOfBars * (4/5) * 100}%`;
-        }, i * timeout + 30);
+        }, i * timeout + 20));
       }
 
       setTimeout(() => {
         firstBarStyle.backgroundColor = ogColor;
         secBarStyle.backgroundColor = ogColor;
-      }, i * timeout + 45);
+      }, i * timeout + 30);
     }
-    setTimeout(() => {
+
+    timeoutIds.push(setTimeout(() => {
       this.setState({array: arrayCopy});
-    }, steps.length * timeout);
+    }, steps.length * timeout));
+  }
+
+  clearTimeouts() {
+    const {timeoutIds} = this.state;
+    if (timeoutIds) {
+      timeoutIds.forEach(timeoutId => clearTimeout(timeoutId));
+    }
   }
 
   handleSliderChange = (event) => {
@@ -107,7 +120,6 @@ class SortingVisualizer extends React.Component {
     const newNoOfbars = event.target.value
     console.log({newNoOfbars});
     this.setState({noOfBars: newNoOfbars});
-    this.resetArray();
   }
 
   render() {
