@@ -1,6 +1,7 @@
 # Sorting Visualizer
 
 This Sorting Visualizer project was built using React, Tailwind CSS and Github Actions, hosted on Github Pages.
+
 [Click here to view the website](https://diatbbin.github.io/sorting-visualizer/).
 
 ![Sorting Visualizer](./images/sorting-visualizer.png)
